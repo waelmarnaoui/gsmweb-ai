@@ -11,14 +11,18 @@ from supabase import create_client
 load_dotenv()
 
 
+
 def get_supabase_client():
     url = os.getenv("SUPABASE_URL")
-    key = os.getenv("SUPABASE_KEY")
+    key = os.getenv("SUPABASE_SECRET_KEY")
 
     if not url or not key:
-        raise RuntimeError("Supabase configuration is missing.")
+        raise RuntimeError(
+            "Supabase URL or server-side secret key is missing."
+        )
 
     return create_client(url, key)
+   
 
 
 def fetch_all(table, columns, filters=None):
