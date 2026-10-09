@@ -1,0 +1,7 @@
+.venv/
+google-ads.yaml
+client_secret.json
+*.json
+__pycache__/
+.env
+reports/
