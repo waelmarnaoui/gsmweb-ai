@@ -205,6 +205,16 @@ def main():
     with open(filename, "w", encoding="utf-8") as file:
         json.dump(report, file, indent=2, ensure_ascii=False)
 
+    client = get_supabase_client()
+    (
+        client.table("gsm_ai_daily_reports")
+        .upsert({
+            "report_date": report["generated_at"],
+            "report": report,
+        })
+        .execute()
+    )
+
     print("\nGSMWEB CRM PERFORMANCE — READ-ONLY")
     print("=" * 48)
     print(f"Period: last {report['period_days']} days")
